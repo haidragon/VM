@@ -10,6 +10,8 @@ vm -- code interpreter
 1. miniVm
 2. babyVm
 3. badVm
+4. badVm-2.0
+5. badVm-3.0
 
 ## 0x0miniVm
 
@@ -31,71 +33,71 @@ vm -- code interpreter
 
 ```
 enum regs {
-    EAX = 0,
-    EBX = 1,
-    ECX = 2,
-    EDX = 3,
-    ESI = 4,
-    EDI = 5,
-    EBP = 6,
-    ESP = 7,
-    EFL = 8,
+    EAX
+    EBX
+    ECX
+    EDX
+    ESI
+    EDI
+    EBP
+    ESP
+    EFL
 };
 enum opcodes{
 
     //4
-    PushReg32 = 0xe1,
-    PushImm32 = 0xe3,
-    PushMem32 = 0xe4,
-    PopReg32 = 0xe5,
+    PushReg32
+    PushImm32
+    PushMem32
+    PopReg32
 
     //4
-    MovImm2Reg = 0xa1,
-    MovReg2Reg = 0xa2,
-    MovMem2Reg = 0xa3,
-    MovReg2Mem = 0xa4,
+    MovImm2Reg
+    MovReg2Reg
+    MovMem2Reg
+    MovReg2Mem
 
     //6
-    AddReg2Reg = 0xa5,
-    AddImm2Reg = 0xa6,
-    AddMem2Reg = 0xa7,
-    AddImm2Mem = 0xa8,
-    AddReg2Mem = 0xa9,
-    AddMem2Mem = 0xa0,
+    AddReg2Reg
+    AddImm2Reg
+    AddMem2Reg
+    AddImm2Mem
+    AddReg2Mem
+    AddMem2Mem
 
     //6
-    MulReg2Reg = 0xe6,
-    MulImm2Reg = 0xe7,
-    MulMem2Reg = 0xe8,
-    MulImm2Mem = 0xe9,
-    MulReg2Mem = 0xea,
-    MulMem2Mem = 0xeb,
+    MulReg2Reg
+    MulImm2Reg
+    MulMem2Reg
+    MulImm2Mem
+    MulReg2Mem
+    MulMem2Mem
 
     //6
-    XorReg2Reg = 0xc0,
-    XorImm2Reg = 0xc1,
-    XorMem2Reg = 0xc2,
-    XorImm2Mem = 0xc3,
-    XorReg2Mem = 0xc4,
-    XorMem2Mem = 0xc5,
+    XorReg2Reg
+    XorImm2Reg
+    XorMem2Reg
+    XorImm2Mem
+    XorReg2Mem
+    XorMem2Mem
 
     //5
-    Jmp = 0xb0,
-    Ja = 0xb1,
-    Jb = 0xb2,
-    Je = 0xb3,
-    Jz = 0xb4,
+    Jmp
+    Ja
+    Jb
+    Je
+    Jz
     
     //2
-    Sal = 0x99,
-    Sar = 0x88,
+    Sal
+    Sar
     
     //1
-    CmpReg2Reg = 0x77,
+    CmpReg2Reg
 
     //2
-    Nop = 0x66,
-    RET = 0xff,
+    Nop
+    RET
 };
 
 ```
@@ -175,6 +177,23 @@ flag = sum
 ```
 
 我把`(i+0x30)`称作动态取址，整个VM只能有一个动态取址的操作，因此循环的功能就显得很鸡肋，局限性很大。
+
+
+## 0x3badVm-2.0
+
+在第一个版本的基础上对指令进行了较为系统的整理，主要是基于mipsel32指令集，实现了指令系统的设计，编译器和解释器。数据大小以`uint32_t` 为单位。有好处也有坏处，不过看来这样会带来许多的麻烦使得指令无法进行一一对应。
+
+*`虚拟机指令可以进行随机生成。`*
+
+具体的可以查看其文档。
+
+## 0x4badVm-3.0
+
+结合第一版和第二版，改进了第一版指令设计的缺点，同时对第二版的数据单位进行调整，基本实现了对`MIPS`指令的识别和解析，并可以随机生成虚拟机指令。
+
+>PS:由于时间的原因，我只测试了简单的循环异或语句，其中必定还存在许多考虑不周的地方,欢迎各位师傅Fork，一同学习交流，也欢迎各位师傅拿此框架出题。 -- 2019.3.17
+
+具体可以参考项目文档。
 
 
 # other vm
